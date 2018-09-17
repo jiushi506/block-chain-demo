@@ -1,13 +1,12 @@
 package com.simon.blockchain.transaction;
 
+import com.simon.blockchain.Main;
 import com.simon.blockchain.util.CryptologyUtil;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.simon.blockchain.Main;
 
 /**
  * Created by simon on 2018/2/9.
@@ -23,8 +22,8 @@ public class Transaction {
     //数字签名保证两点：1.只有数字货币的拥有者才能使用。2.在交易被矿工挖出之前（共识前）交易不会被篡改。
     public byte[] signature;
 
-    public List<TransactionInput> inputs = new ArrayList<>();
-    public List<TransactionOutput> outputs = new ArrayList<>();
+    public List<TransactionInput> inputs = new ArrayList<TransactionInput>();
+    public List<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
 
     //统计交易频次
     private static int sequence = 0;

@@ -1,8 +1,5 @@
 package com.simon.blockchain;
 
-import java.security.Security;
-import java.util.*;
-
 import com.google.gson.GsonBuilder;
 import com.simon.blockchain.element.Block;
 import com.simon.blockchain.element.Wallet;
@@ -11,16 +8,22 @@ import com.simon.blockchain.transaction.TransactionInput;
 import com.simon.blockchain.transaction.TransactionOutput;
 import com.simon.blockchain.util.CryptologyUtil;
 
+import java.security.Security;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * Created by simon on 2018/2/8.
  */
 public class Main {
 
-    public static List<Block> blockChain = new ArrayList<>();
+    public static List<Block> blockChain = new ArrayList<Block>();
 
     //为了提高交易效率，使用额外的数据记录输出信息。
-    public static Map<String, TransactionOutput> UTXOs = new HashMap<>();
+    public static Map<String, TransactionOutput> UTXOs = new HashMap<String, TransactionOutput>();
 
     //可以通过设置不同的值来测试挖矿时间（不要设置太大，否则后果自负^_^）
     public static final int difficulty = 4;
@@ -145,7 +148,7 @@ public class Main {
     public static Boolean isBlockChainValid() {
         Block currentBlock;
         Block previousBlock;
-        Map<String,TransactionOutput> tempUTXOs = new HashMap<>();
+        Map<String,TransactionOutput> tempUTXOs = new HashMap<String,TransactionOutput>();
         tempUTXOs.put(genesisTransaction.outputs.get(0).id,genesisTransaction.outputs.get(0));
 
         String hashTarget = new String(new char[difficulty]).replace('\0', '0');
@@ -207,12 +210,12 @@ public class Main {
                 }
 
                 //校验当前交易的输出是否有效
-                if(!Objects.equals(currentTransaction.outputs.get(0).recipient,currentTransaction.recipient)){
+                if(!currentTransaction.outputs.get(0).recipient.equals(currentTransaction.recipient)){
                     System.out.println("output for recipient is not invalid "+ j +" transaction");
                     return false;
                 }
                 //检验交易结余是否返回给sender
-                if(!Objects.equals(currentTransaction.outputs.get(1).recipient,currentTransaction.sender)){
+                if(!currentTransaction.outputs.get(1).recipient.equals(currentTransaction.sender)){
                     System.out.println("output for sender is not invalid "+ j +" transaction");
                     return false;
                 }

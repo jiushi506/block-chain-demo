@@ -5,9 +5,7 @@ import com.simon.blockchain.util.CryptologyUtil;
 import com.simon.blockchain.util.TreeUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by simon on 2018/2/8.
@@ -22,7 +20,7 @@ public class Block {
     //区块中的数据
     public String data;
 
-    public List<Transaction> transactions = new ArrayList<>();
+    public List<Transaction> transactions = new ArrayList<Transaction>();
     //时间戳
     private long timeStamp;
     //随机数，使得hash的前difficulty位是0
@@ -32,14 +30,14 @@ public class Block {
     public Block(String data, String previousHash) {
         this.data = data;
         this.previousHash = previousHash;
-        this.timeStamp = new Date().getTime();
+        this.timeStamp = System.currentTimeMillis();
         this.hash = calculateHash();
     }
 
     //block实际使用的构造函数
     public Block(String previousHash){
         this.previousHash = previousHash;
-        this.timeStamp = new Date().getTime();
+        this.timeStamp = System.currentTimeMillis();
         this.hash  = calculateHash();
     }
 
@@ -69,10 +67,10 @@ public class Block {
     }
 
     public boolean addTransaction(Transaction transaction){
-        if(Objects.isNull(transaction)){
+        if(null == transaction){
             return false;
         }
-        if(!Objects.equals(previousHash,"0")){
+        if(!previousHash.equals("0")){
             if(!transaction.processTransaction()) {
                 System.out.println("Transaction failed to process.");
                 return false;

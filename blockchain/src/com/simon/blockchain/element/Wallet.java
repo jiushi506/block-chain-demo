@@ -20,7 +20,7 @@ public class Wallet {
     public PublicKey publicKey;
 
     //属于自己且没有被使用的TransactionOutput
-    public Map<String,TransactionOutput> UTXOs = new HashMap<>();
+    public Map<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>();
 
     public Wallet(){
         generateKeyPair();
@@ -72,7 +72,7 @@ public class Wallet {
         if (getBalance() < value) {
             System.out.println();
         }
-        List<TransactionInput> inputs = new ArrayList<>();
+        List<TransactionInput> inputs = new ArrayList<TransactionInput>();
 
         float total = 0;
 
@@ -80,7 +80,9 @@ public class Wallet {
             TransactionOutput UTXO = item.getValue();
             total += UTXO.value;
             inputs.add(new TransactionInput(UTXO.id));
-            if (total > value) break;
+            if (total > value) {
+                break;
+            }
         }
 
         Transaction newTransaction = new Transaction(publicKey, _recipient, value, inputs);

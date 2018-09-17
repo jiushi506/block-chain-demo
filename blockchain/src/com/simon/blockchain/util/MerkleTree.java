@@ -13,7 +13,7 @@ public class MerkleTree {
     private String root;
 
     public MerkleTree(List<Transaction> transactions) {
-        txs = new ArrayList<>();
+        txs = new ArrayList<String>();
         for (int i = 0; i < transactions.size(); i++) {
             txs.add(transactions.get(i).transactionId);
         }
@@ -27,7 +27,7 @@ public class MerkleTree {
         if (txs.size() == 1) {
             return txs.get(0);
         }
-        List<String> tempTxs = new ArrayList<>();
+        List<String> tempTxs = new ArrayList<String>();
         tempTxs.addAll(txs);
 
         List<String> newTxs = getNewTxList(tempTxs);
@@ -40,7 +40,7 @@ public class MerkleTree {
     }
 
     private List<String> getNewTxList(List<String> txs) {
-        List<String> newTxs = new ArrayList<>();
+        List<String> newTxs = new ArrayList<String>();
         int index = 0;
         while (index < txs.size()) {
             String left = txs.get(index);
